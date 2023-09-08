@@ -1,6 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
+/*
+
+Trabalho inacabado (não foi feito Gladiador)
+
+*/
+
 public class AppArena
 {
     static Scanner scanner = new Scanner(System.in);
@@ -25,6 +31,7 @@ public class AppArena
         System.out.print("Pressione 'Enter' para ver o combate: ");
         scanner.nextLine();
         campeonato();
+        scanner.close();
 
     }
 

@@ -1,3 +1,5 @@
+
+//Fazer depois
 public class Gladiador extends Lutador
 {
     private String arma;
@@ -5,8 +7,6 @@ public class Gladiador extends Lutador
     private double poderOfensivo;
     private double poderDefesa;
     private double estadoConservacao;
-
-
 
     public Gladiador(String nome , double nivelEnergia)
     {
