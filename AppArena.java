@@ -1,10 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/*
-
+/*0
 Trabalho inacabado (não foi feito Gladiador)
-
 */
 
 public class AppArena
@@ -25,14 +23,12 @@ public class AppArena
         {
             System.out.printf("Ficha %d",i+1);
             criaPersonagem(i + 1);
-
         }
 
         System.out.print("Pressione 'Enter' para ver o combate: ");
         scanner.nextLine();
         campeonato();
         scanner.close();
-
     }
 
     public static void criaPersonagem(int index)
@@ -127,7 +123,6 @@ public class AppArena
                 ataque=atacante.atacar();
             }
 
-
             if(defensor instanceof Lutador)
             {
                 Lutador boxeador = (Lutador) defensor;
@@ -142,7 +137,6 @@ public class AppArena
                 {
                     besta.nivelEnergia += Dado.nivelDefesa()*0.5;
                 }
-
             }
             else
             {
