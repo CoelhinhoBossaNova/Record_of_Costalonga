@@ -11,7 +11,8 @@ public class AppArena
     static ArrayList<Combatente> listaPersonagens = new ArrayList<>();
     static int qtPersonagens;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
         System.out.println("Bem Vindo ao 'Record of Costalonga' \n");
 
