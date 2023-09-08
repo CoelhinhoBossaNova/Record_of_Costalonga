@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-/*0
+/*
 Trabalho inacabado (não foi feito Gladiador)
 */
 
