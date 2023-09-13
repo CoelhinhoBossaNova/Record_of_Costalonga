@@ -3,6 +3,8 @@ import java.util.Random;
 public class Lutador extends Combatente
 {
     static Random random = new Random();
+    private String nomeGolpe;
+    private String nomeDefesa;
 
     public Lutador(String nome , double nivelEnergia)
     {
@@ -18,9 +20,11 @@ public class Lutador extends Combatente
         {   
             case(1)->{
 
+                setNomeAtaque("Chutar");
                 return socar();
             }
             case(2)->{
+                setNomeAtaque("Chutar");
                return chutar();
             }
             default -> {
@@ -36,16 +40,40 @@ public class Lutador extends Combatente
         switch(defesa)
         {   
             case(1)->{
-
+                setNomeDefesa("Bloqueio");
                 guarda(poderAtaque);
             }
             case(2)->{
+                setNomeDefesa("Esquiva");
                 esquivar(poderAtaque);
             }
 
         }
 
     }
+
+    public String getNomeAtaque()
+    {
+        return nomeGolpe;
+    }
+
+    public void setNomeAtaque(String nomeGolpe)
+    {
+        this.nomeGolpe = nomeGolpe;
+    }
+
+    public String getNomeDefesa()
+    {
+        return nomeDefesa;
+    }
+
+    public void setNomeDefesa(String nomeDefesa)
+    {
+        this.nomeDefesa = nomeDefesa;
+    }
+
+
+
     public double socar()
     {
         double poderAtaque = Dado.nivelAtaque() + 15;

@@ -10,6 +10,7 @@ public class AppArena
     static Scanner scanner = new Scanner(System.in);
     static ArrayList<Combatente> listaPersonagens = new ArrayList<>();
     static int qtPersonagens;
+    static int rodada = 1;
 
     public static void main(String[] args)
     {
@@ -52,11 +53,11 @@ public class AppArena
 
         switch (classe) {
             case (1) -> {
-                Combatente sanguinario = new Combatente(nickname, 100.0);
+                Combatente sanguinario = new Combatente(nickname, 140.0);
                 listaPersonagens.add(sanguinario);
             }
             case (2) -> {
-                Lutador boxeador = new Lutador(nickname, 150.0);
+                Lutador boxeador = new Lutador(nickname, 90.0);
                 listaPersonagens.add(boxeador);
             }
             case (3) -> {
@@ -88,100 +89,46 @@ public class AppArena
 
             assert vencedor != null;
 
+            System.out.print("Pressione 'Enter' para saber quem ganhou: ");
+            scanner.nextLine();
+
             System.out.printf("%s vs %s quem ganhou foi : %s com %.2f de vida\n",personagem1.getNome(),personagem2.getNome(),vencedor.getNome(),vencedor.nivelEnergia);
 
         }
-
-        String classe = tipoClasse();
-
-        System.out.printf("\nO ultimo a ficar de pé foi %s da classe %s com %.2f de vida \n",listaPersonagens.get(0).nome,classe,listaPersonagens.get(0).nivelEnergia);
+        System.out.printf("\nO ultimo a ficar de pé foi %s da classe %s com %.2f de vida \n",listaPersonagens.get(0).nome,listaPersonagens.get(0).getClass().getName(),listaPersonagens.get(0).nivelEnergia);
     }
 
 
     public static Combatente luta(Combatente personagem1, Combatente personagem2)
     {
-        Combatente primeiroAtacante = (Math.random() >= 0.5) ? personagem1 : personagem2;
 
+        //Concertar prints depois
+
+        Combatente primeiroAtacante = (Math.random() >= 0.5) ? personagem1 : personagem2;
         double ataque = 0.0;
+
+        System.out.printf("\nRodada %d\n",rodada);
+        System.out.printf("%s vs %s\n\n",personagem1.getNome(),personagem2.getNome());
 
         while (personagem1.estarVivo() && personagem2.estarVivo())
         {
             Combatente atacante = primeiroAtacante;
             Combatente defensor = (atacante == personagem1) ? personagem2 : personagem1;
 
-            if(atacante instanceof Lutador)
-            {
-                Lutador boxeador = (Lutador) atacante;
-                ataque = boxeador.escolherAtaque();
-            }
-            if(atacante instanceof Fera)
-            {
-                Fera besta = (Fera) atacante;
-                ataque = besta.escolherAtaque(defensor);
-            }
-            else
-            {
-                ataque=atacante.atacar();
-            }
-
-            if(defensor instanceof Lutador)
-            {
-                Lutador boxeador = (Lutador) defensor;
-                boxeador.escolherDefesa(ataque);
-            }
-            if(defensor instanceof Fera)
-            {
-                Fera besta = (Fera) defensor;
-                besta.defesa(ataque);
-
-                if(besta.nivelEnergia<15)
-                {
-                    besta.nivelEnergia += Dado.nivelDefesa()*0.5;
-                }
-            }
-            else
-            {
-                defensor.defesa(ataque);
-            }
+            ataque = atacante.atacar(atacante , defensor);
+            defensor.defesa(ataque,defensor);
 
             if (!defensor.estarVivo())
             {
+                System.out.printf("%s morreu e esta fora de combate \n",defensor.getNome());
+
                 listaPersonagens.remove(defensor);
+                ++rodada;
                 return atacante;
-            }
-
-            if(!(defensor instanceof Lutador ) && !(defensor instanceof Fera) )
-            {
-                double correcao = Dado.nivelAtaque();
-
-                correcao = correcao>=10? 10 : correcao;
-
-                defensor.nivelEnergia+= 2 * correcao;
             }
 
             primeiroAtacante = defensor;
         }
         return null;
-    }
-
-    public static String tipoClasse()
-    {
-
-        if(listaPersonagens.get(0) instanceof Lutador)
-        {
-            return "Lutador";
-        }
-        else if(listaPersonagens.get(0) instanceof Gladiador)
-        {
-            return "Gladiador";
-        }
-        else if(listaPersonagens.get(0) instanceof Fera)
-        {
-            return "Fera";
-        }
-        else
-        {
-            return "Combatente";
-        }
     }
 }

@@ -21,7 +21,7 @@ public class Combatente
 
 
     public boolean estarVivo()
-    {   
+    {
         if(nivelEnergia>0)
         {
             return true;
@@ -33,21 +33,59 @@ public class Combatente
         
     }
 
-    public double atacar()
+    public double atacar(Combatente atacante , Combatente defensor)
     {
-        double ataque = Dado.nivelAtaque();
-        return ataque;
+        if(atacante instanceof Lutador)
+        {
+            Lutador boxeador = (Lutador) atacante;
+
+            if(boxeador instanceof  Gladiador)
+            {
+                 Gladiador espartano = (Gladiador) boxeador;
+                 return espartano.apagarDepois();
+            }
+            else
+            {
+                return boxeador.escolherAtaque();
+            }
+        }
+        else if(atacante instanceof Fera)
+        {
+            Fera besta = (Fera) atacante;
+            return besta.escolherAtaque(defensor);
+        }
+        else
+        {
+            return Dado.nivelAtaque();
+        }
+
     }
 
-    public void defesa(double poderAtaque)
+    public void defesa(double poderAtaque , Combatente defensor)
     {
         //modificar depois
-        nivelEnergia-=poderAtaque;
+        if(defensor instanceof Lutador)
+        {
+            Lutador boxeador = (Lutador) defensor;
+
+            if(boxeador instanceof  Gladiador)
+            {
+                //Terminar
+                nivelEnergia-=poderAtaque;
+            }
+            else
+            {
+                boxeador.escolherDefesa(poderAtaque);
+            }
+        }
+        else if(defensor instanceof Fera)
+        {
+            nivelEnergia-=poderAtaque;
+        }
+        else
+        {
+            nivelEnergia-=(poderAtaque) * (Dado.nivelAtaque()/2);
+        }
 
     }
-
-
-
-
-
 }

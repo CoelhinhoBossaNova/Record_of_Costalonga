@@ -1,19 +1,20 @@
+import java.util.ArrayList;
 
 //Fazer depois
 public class Gladiador extends Lutador
 {
-    private String arma;
-    private String nomeGolpe;
-    private double poderOfensivo;
-    private double poderDefesa;
-    private double estadoConservacao;
+    ArrayList<Arsenal> armas = new ArrayList<>();
+    ArrayList<Arsenal> armaduras = new ArrayList<>();
 
     public Gladiador(String nome , double nivelEnergia)
     {
         super(nome,nivelEnergia);
     }
 
-
+    public int apagarDepois()
+    {
+        return 2;
+    }
 
 
 
